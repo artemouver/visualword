@@ -162,22 +162,4 @@ window.addEventListener('DOMContentLoaded', function () {
     }());
     listenEvents.listen();
 // ===== END OF: listen events
-
-// START OF: animate 404 =====
-    const animate404 = (function () {
-
-        function animate () {
-            appear();
-        }
-
-        function appear() {
-
-        }
-
-        return {
-            animate: animate
-        }
-    }());
-    animate404.animate();
-// ===== END OF: animate 404
 });
