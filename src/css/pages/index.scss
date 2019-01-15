@@ -1,7 +1,39 @@
 .background {
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    //background-color: #fecfef;
+    //box-shadow: inset 0 -50vh 1000px -5vh rgba(255,154,158,0.5);
+    //
+    //background-color: #a6c1ee;
+    //box-shadow: inset 0 -50vh 1000px -5vh rgba(251,194,235, 0.5);
+
+    //background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 100%);
+    //background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+
+    animation: gradient 20s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-color: #fecfef;
+        box-shadow: inset 0 -50vh 1000px -5vh rgba(255,154,158,0.5);
+    }
+    25% {
+        background-color: #a6c1ee;
+        box-shadow: inset 0 -50vh 1000px -5vh rgba(251,194,235,0.5);
+    }
+    50% {
+        background-color: #8fd3f4;
+        box-shadow: inset 0 -50vh 1000px -5vh rgba(132,250,176,0.5);
+    }
+    75% {
+        background-color: #009efd;
+        box-shadow: inset 0 -50vh 1000px -5vh rgba(42,245,152,0.5);
+    }
+    100% {
+        background-color: #fecfef;
+        box-shadow: inset 0 -50vh 1000px -5vh rgba(255,154,158,0.5);
+    }
 }
 
 .veil {
@@ -86,7 +118,7 @@
 
     transition: border .3s ease, color .3s ease, background-color .3s ease;
 
-    margin-bottom: 200px;
+    margin-bottom: 100px;
 }
 
 .arrow {

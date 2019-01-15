@@ -27,7 +27,7 @@ gulp.task('css', function() {
 
 // js
 gulp.task('js', function() {
-    gulp.src(['src/js/jquery-3.3.1.min.js', 'src/js/main.js'])
+    gulp.src(['src/js/jquery-3.3.1.min.js', 'src/js/two.js', 'src/js/physics.js', 'src/js/main.js'])
         .pipe(plumber())
         .pipe(concat('main.js'))
         // .pipe(uglify())

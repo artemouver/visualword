@@ -27,7 +27,7 @@ class Model_Ajax extends Model
                 }
             }
             $coef_color = $csv[$min_lev] + 2;
-            $random1 = (mt_rand() / mt_getrandmax()) / 5 - 0.1;
+            $random1 = (mt_rand() / mt_getrandmax()) * 0.6 - 0.3;
             if ($coef_color + $random1 < 0 || $coef_color + $random1 > 4)
                 $coef_color -= $random1;
             else
@@ -43,7 +43,7 @@ class Model_Ajax extends Model
             $url = "https://psi-technology.net/servisfonosemantika.php";
 
             $post_data = array (
-                "slovo" => iconv("UTF-8", "Windows-1251", $word),
+                "slovo" => iconv("UTF-8", "Windows-1251", $min_lev),
                 "sub" => ""
             );
 
@@ -60,52 +60,34 @@ class Model_Ajax extends Model
 
             curl_close($ch);
 
-
-
-
             $matches2 = array();
             preg_match_all('/(<tr>[\s\S]*?<\/tr>)/', $matches1[0], $matches2);
 
+            $random1 = (mt_rand() / mt_getrandmax()) * 0.2 - 0.1;
+            $random2 = (mt_rand() / mt_getrandmax()) * 0.2 - 0.1;
 
             $roughness = preg_split('/\\r\\n?|\\n/', trim($matches2[0][12]));
-            if (preg_match_all('/red/', $roughness[4]))
-                $roughness = $roughness[2];
-            else if (preg_match_all('/blue/', $roughness[4]))
-                $roughness = "-" . trim($roughness[2]);
-            else {
-                if (mt_rand() / mt_getrandmax() >= 0.5) {
-                    $roughness = $roughness[2];
-                } else {
-                    $roughness = "-" . trim($roughness[2]);
-                }
-            }
-            $roughness = (float) preg_replace('/,/', '.', trim(strip_tags($roughness)));
+            $roughness = (float) preg_replace('/,/', '.', trim(strip_tags($roughness[2])));
+
+            if ($roughness + $random1 < 0 || $roughness + $random1 > 1)
+                $roughness -= $random1;
+            else
+                $roughness += $random1;
+
+            $roughness /= 6;
 
 
             $angularity = preg_split('/\\r\\n?|\\n/', trim($matches2[0][18]));
-            if (preg_match_all('/red/', $angularity[4]))
-                $angularity = $angularity[2];
-            else if (preg_match_all('/blue/', $angularity[4]))
-                $angularity = "-" . trim($angularity[2]);
-            else {
-                if (mt_rand() / mt_getrandmax() >= 0.5) {
-                    $angularity = $angularity[2];
-                } else {
-                    $angularity = "-" . trim($angularity[2]);
-                }
-            }
-            $angularity = (float) preg_replace('/,/', '.', trim(strip_tags($angularity)));
+            $angularity = (float) preg_replace('/,/', '.', trim(strip_tags($angularity[2])));
 
-            $angularity = ($angularity + $roughness) / 2;
-            if ($angularity < -4)
-                $angularity = -4;
-            if ($angularity > 4)
-                $angularity = 4;
+            if ($angularity + $random2 < 0 || $angularity + $random2 > 1)
+                $angularity -= $random2;
+            else
+                $angularity += $random2;
 
-            $angularity = ($angularity + 4) / 8;
+            $angularity /= 6;
 
-
-            $res = array("error" => false, "word" => $word, "angularity" => $angularity, "color" => $rgb, "foundWord" => $min_lev);
+            $res = array("error" => false, "word" => $word, "angularity" => $angularity, "roughness" => $roughness, "color" => $rgb, "foundWord" => $min_lev);
 
             return $res;
         } else
